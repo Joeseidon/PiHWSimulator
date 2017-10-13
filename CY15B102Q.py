@@ -68,6 +68,8 @@ class CY15B102Q_SIM:
 
     def chipSelected(self):
         ##Establish SPI Mode based on first SCLK read
+            #This should actaully be unneed for these purposes because the following will read
+            #on the first rising edge regardless
 
         #Create event for clk signal. This will indicate when to read data.
         GPIO.add_event_detect(self.SCLK, GPIO.RISING, callback=self.readData, bouncetime=50)
@@ -109,6 +111,6 @@ class CY15B102Q_SIM:
                 else:
                     GPIO.output(self.MISO, GPIO.LOW)
                 bdata = bdata >> 1
-                
+
             #Action is no longer required on rising clock cycles
             GPIO.remove_event_detect(self.SCLK)
