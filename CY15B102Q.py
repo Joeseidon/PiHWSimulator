@@ -101,10 +101,13 @@ class CY15B102Q_SIM:
             #This interrupt will indicate when the master deselects this device
             GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
 
+            i=0
             #active low
             while self.chipSelect:
                 #While chip select is held interupts will be triggered to start data read
-                print("Waiting for rising edge on clock to read data")
+                i+=1
+                if(i == 1000):
+                    print("Waiting for rising edge on clock to read data")
                 #After all data has been read trigger analyze
                 if(self.analyze):
                     self.analyzeData()
@@ -117,6 +120,7 @@ class CY15B102Q_SIM:
 
     def readMasterData(self, channel):
         if(channel == self.SCLK):
+            print("Read data!!")
             if(self.chipSelect):
                 self.data << GPIO.input(self.MOSI)
             if(bits == 23):
