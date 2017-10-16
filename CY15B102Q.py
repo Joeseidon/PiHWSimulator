@@ -32,7 +32,7 @@ class CY15B102Q_SIM:
     def __init__(self):
         #Set SPI pin values
         self.SCLK = 11
-        self.MISO = 12
+        self.MISO = 10
         self.MOSI = 13
         self.CS = 15
 
