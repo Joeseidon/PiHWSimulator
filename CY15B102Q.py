@@ -45,18 +45,18 @@ class CY15B102Q_SIM:
 
         #Set up Pi to be an SPI slave device
         self.SPI_slave_init()
-
+	
         #Wait for Master device to signal this device
         while True:
             #Wait for interrupt
             GPIO.wait_for_edge(self.CS, GPIO.RISING)
-
+	
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
         keylist = sorted(self.dic.iterkeys())
         return keylist
 
-    def setSC(self):
+    def setCS(self):
         self.chipSelect = False
 
     def SPI_slave_init(self):
@@ -145,3 +145,5 @@ class CY15B102Q_SIM:
 
         #Action is no longer required on rising clock cycles
         GPIO.remove_event_detect(self.SCLK)
+if __name__ == "__main__":
+	controler = CY15B102Q_SIM()

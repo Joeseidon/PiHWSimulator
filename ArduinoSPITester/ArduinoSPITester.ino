@@ -7,20 +7,20 @@ volatile byte WRITEop = 0x02;
 
 volatile byte TestData = 0x25;
 
-volatile uint32_t TestAddress = 0x14543
-
+volatile uint32_t TestAddress = 0x14543;
+/*
 //SPI pins
 int SS = 10;
 int MOSI = 11;
 int MISO = 12;
-int SCLK = 13;
+int SCLK = 13;*/
 
 
 void setup (void)
 {
 
   digitalWrite(SS, HIGH);  // ensure SS stays high for now
-
+/*
   // Put SCK, MOSI, SS pins into output mode
   // also put SCK, MOSI into LOW state, and SS into HIGH state.
   pinMode(MOSI, OUTPUT);
@@ -28,10 +28,10 @@ void setup (void)
   pinMode(MISO, INPUT);
   digitalWrite(MISO, LOW);
   pinMode(SCLK, OUTPUT);
-  digitalWrite(SCLK, LOW);
+  digitalWrite(SCLK, LOW);*/
 
   // Then put SPI hardware into Master mode and turn SPI on
-  SPI.begin ();
+  SPI.begin();
 
   SPI.setDataMode(SPI_MODE1);
 
@@ -39,6 +39,13 @@ void setup (void)
 
   // Slow down the master a bit
   SPI.setClockDivider(SPI_CLOCK_DIV8);
+  
+  Serial.begin(9600);
+  
+  Serial.write("Enter 1 to start");
+  
+  while(Serial.available()==0){}
+    
 
 }  // end of setup
 
