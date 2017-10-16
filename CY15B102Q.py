@@ -56,8 +56,9 @@ class CY15B102Q_SIM:
         keylist = sorted(self.dic.iterkeys())
         return keylist
 
-    def setCS(self):
-        self.chipSelect = False
+    def setCS(self, channel):
+        if(channel == self.CS):
+            self.chipSelect = False
 
     def SPI_slave_init(self):
         #Set up GPIO Pins
@@ -80,37 +81,39 @@ class CY15B102Q_SIM:
         #Create event for clk signal. This will indicate when to read data.
         GPIO.add_event_detect(self.SCLK, GPIO.RISING, callback=self.readMasterData)
 
-    def chipSelected(self):
-        #Used by other programs to order operations
-        self.chipSelect = True
+    def chipSelected(self, channel):
+        if(channel == self.CS):
+            #Used by other programs to order operations
+            self.chipSelect = True
 
-        #Must remove previous edge detection
-        GPIO.remove_event_detect(self.CS)
+            #Must remove previous edge detection
+            GPIO.remove_event_detect(self.CS)
 
-        #This interrupt will indicate when the master deselects this device
-        GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
+            #This interrupt will indicate when the master deselects this device
+            GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
 
-        #active low
-        while self.chipSelect:
-            #While chip select is held interupts will be triggered to start data read
+            #active low
+            while self.chipSelect:
+                #While chip select is held interupts will be triggered to start data read
 
-            #After all data has been read trigger analyze
-            if(self.analyze):
-                self.analyzeData()
-            pass
+                #After all data has been read trigger analyze
+                if(self.analyze):
+                    self.analyzeData()
+                pass
 
-        #After CS is released data register will be cleared
-        self.data = 0x0
-        #After CS is released all flags should be reset
-        self.analyze = False
+            #After CS is released data register will be cleared
+            self.data = 0x0
+            #After CS is released all flags should be reset
+            self.analyze = False
 
-    def readMasterData(self):
-        if(self.chipSelect):
-            self.data << GPIO.input(self.MOSI)
-        if(bits == 23):
-            self.analyze == True
-            #Remove SCLK event so this input can be used for read/write events
-            GPIO.remove_event_detect(self.SCLK)
+    def readMasterData(self, channel):
+        if(channel == self.SCLK):
+            if(self.chipSelect):
+                self.data << GPIO.input(self.MOSI)
+            if(bits == 23):
+                self.analyze == True
+                #Remove SCLK event so this input can be used for read/write events
+                GPIO.remove_event_detect(self.SCLK)
 
     def analyzeData(self):
         #inspect first 8 bits for opcode
