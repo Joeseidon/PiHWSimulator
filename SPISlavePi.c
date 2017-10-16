@@ -27,7 +27,12 @@ int main(int argc, char *argv[]){
     pthread_set_mode_np(0, PTHREAD_WARNSW|PTHREAD_PRIMARY);
 #endif
 
-    spisl_init()
+    spisl_init();
 
-    spisl_synchronize()
+    spisl_synchronize();
+
+    if(spisl_poll(4) == 1){
+      uint8_t[] rtn = spisl_read();
+    }
+    printf("%i",rtn[0])
 }

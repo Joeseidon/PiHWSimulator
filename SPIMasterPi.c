@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 
   if(spi_poll(1)){
     uint8_t rtn = spi_read();
-    printf("%i",rtn)
+    printf("%i",&rtn);
   }
   spi_stop();
 }
