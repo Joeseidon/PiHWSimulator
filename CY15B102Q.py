@@ -134,9 +134,9 @@ class CY15B102Q_SIM:
             ##Else wait for next opcode
                 ##If opecode == READ opcode
                     #data is sent out in 8bit chuncks while sckl is issued and CS is low
-                    if self.data & OPCODEMASK == opcodes['READ']:
-                        start_address = ADDRESSMASK & self.data
-                        self.sendData(start_address)
+        if self.data & OPCODEMASK == opcodes['READ']:
+            start_address = ADDRESSMASK & self.data
+            self.sendData(start_address)
 
     def sendData(self,address):
         #Create event for clk signal. This will indicate when to write data.
