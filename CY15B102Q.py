@@ -46,11 +46,17 @@ class CY15B102Q_SIM:
         #Set up Pi to be an SPI slave device
         self.SPI_slave_init()
 
+        self.mainLoop()
+
+    def mainLoop(self):
         #Wait for Master device to signal this device
+        i = 0
         while True:
+            i+=1
             #main loop
-            print("Waiting")
-	    pass
+            if(i == 10000):
+                print("Waiting in the main loop")
+            pass
 
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
@@ -84,6 +90,7 @@ class CY15B102Q_SIM:
 
     def chipSelected(self, channel):
         if(channel == self.CS):
+            print("Chip select line pulled low")
             #Used by other programs to order operations
             self.chipSelect = True
 
