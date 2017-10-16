@@ -49,6 +49,7 @@ class CY15B102Q_SIM:
         #Wait for Master device to signal this device
         while True:
             #main loop
+            pass
 
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
