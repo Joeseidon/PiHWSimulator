@@ -45,12 +45,12 @@ class CY15B102Q_SIM:
 
         #Set up Pi to be an SPI slave device
         self.SPI_slave_init()
-	
+
         #Wait for Master device to signal this device
         while True:
             #Wait for interrupt
             GPIO.wait_for_edge(self.CS, GPIO.RISING)
-	
+
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
         keylist = sorted(self.dic.iterkeys())
@@ -67,8 +67,7 @@ class CY15B102Q_SIM:
         GPIO.setup(self.CS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         #Add event to this pin so that when it is pull low the opcode is considered
         GPIO.add_event_detect(self.CS, GPIO.FALLING, callback=self.chipSelected)
-        #This interrupt will indicate when the master deselects this device
-        GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
+
 
         #Set up MOSI (SI) as input
         GPIO.setup(self.MOSI, GPIO.IN)
@@ -84,6 +83,12 @@ class CY15B102Q_SIM:
     def chipSelected(self):
         #Used by other programs to order operations
         self.chipSelect = True
+
+        #Must remove previous edge detection
+        GPIO.remove_event_detect(self.CS)
+        
+        #This interrupt will indicate when the master deselects this device
+        GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
 
         #active low
         while self.chipSelect:
