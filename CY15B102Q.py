@@ -32,7 +32,7 @@ class CY15B102Q_SIM:
     def __init__(self):
         #Set SPI pin values
         self.SCLK = 11
-        self.MISO = 10
+        self.MISO = 3
         self.MOSI = 13
         self.CS = 15
 
@@ -49,7 +49,8 @@ class CY15B102Q_SIM:
         #Wait for Master device to signal this device
         while True:
             #main loop
-            pass
+            print("Waiting")
+	    pass
 
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
