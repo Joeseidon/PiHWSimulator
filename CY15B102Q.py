@@ -48,8 +48,7 @@ class CY15B102Q_SIM:
 
         #Wait for Master device to signal this device
         while True:
-            #Wait for interrupt
-            GPIO.wait_for_edge(self.CS, GPIO.RISING)
+            #main loop
 
     def sortDictionary(self,dic):
         #sorts the data in the provided dictionary by key value (sim_memory address)
@@ -86,7 +85,7 @@ class CY15B102Q_SIM:
 
         #Must remove previous edge detection
         GPIO.remove_event_detect(self.CS)
-        
+
         #This interrupt will indicate when the master deselects this device
         GPIO.add_event_detect(self.CS, GPIO.RISING, callback=self.setCS)
 
