@@ -54,7 +54,7 @@ class CY15B102Q_SIM:
         while True:
             i+=1
             #main loop
-            if(i == 10000):
+            if(i == 1000):
                 print("Waiting in the main loop")
             pass
 
@@ -65,6 +65,7 @@ class CY15B102Q_SIM:
 
     def setCS(self, channel):
         if(channel == self.CS):
+            print("Chip select line released.")
             self.chipSelect = False
 
     def SPI_slave_init(self):
@@ -103,7 +104,7 @@ class CY15B102Q_SIM:
             #active low
             while self.chipSelect:
                 #While chip select is held interupts will be triggered to start data read
-
+                print("Waiting for rising edge on clock to read data")
                 #After all data has been read trigger analyze
                 if(self.analyze):
                     self.analyzeData()
@@ -124,6 +125,7 @@ class CY15B102Q_SIM:
                 GPIO.remove_event_detect(self.SCLK)
 
     def analyzeData(self):
+        print("Analyze Data reached.")
         #inspect first 8 bits for opcode
 
         ##WREN opcode sent after CS pulled low
