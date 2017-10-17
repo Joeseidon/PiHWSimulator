@@ -34,10 +34,10 @@ byte c = SPDR;  // grab byte from SPI Data Register
     {
     buf [pos++] = c;
 
-    // example: newline means time to process buffer
-    if (c == 0xF0){
-      process_it = true;
-
+      // example: newline means time to process buffer
+      if (c == '\n'){
+        process_it = true;
+      }
     }  // end of room available
 }  // end of interrupt routine SPI_STC_vect
 
