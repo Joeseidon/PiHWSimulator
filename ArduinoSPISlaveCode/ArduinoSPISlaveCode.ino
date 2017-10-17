@@ -17,7 +17,7 @@ void setup (void)
   // get ready for an interrupt
   pos = 0;   // buffer empty
   process_it = false;
-
+  SPI.setClockDivider(SPI_CLOCK_DIV128);
   // now turn on interrupts
   SPI.attachInterrupt();
 
@@ -35,7 +35,7 @@ byte c = SPDR;  // grab byte from SPI Data Register
     buf [pos++] = c;
 
       // example: newline means time to process buffer
-      if (c == '\n'){
+      if (pos == 2){
         process_it = true;
       }
     }  // end of room available
@@ -48,6 +48,10 @@ void loop (void)
     {
     buf [pos] = 0;
     Serial.println (buf);
+    char msg[2] = {'c',0x65};
+    byte rtn = SPI.transfer(msg[1]);
+    Serial.print("Return from send: ");
+    Serial.print(rtn);
     pos = 0;
     process_it = false;
     }  // end of flag set
