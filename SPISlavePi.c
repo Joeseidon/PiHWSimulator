@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 #ifdef __XENO__
     pthread_set_mode_np(0, PTHREAD_WARNSW|PTHREAD_PRIMARY);
 #endif
-
+    printf("Testing C code\n");
     spisl_init();
 
     spisl_synchronize();
