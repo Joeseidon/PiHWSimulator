@@ -9,6 +9,8 @@
  * the Free Software Foundation; either version 2 of the License.
  *
  * Cross-compile with cross-gcc -I/path/to/cross-kernel/include
+ *
+ * To run: ./PROGRAM_NAME -D /dev/spidev0.0
  */
 
 #include <stdint.h>
