@@ -51,7 +51,7 @@ static void transfer(int fd)
 	};*/
   uint8_t tx[] = {
     0x53,0x53,
-  }
+  };
 	uint8_t rx[ARRAY_SIZE(tx)] = {0, };
 	struct spi_ioc_transfer tr = {
 		.tx_buf = (unsigned long)tx,
