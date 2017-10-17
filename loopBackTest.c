@@ -50,7 +50,7 @@ static void transfer(int fd)
 		0xF0, 0x0D,
 	};*/
   uint8_t tx[] = {
-    0x53,0x53
+    0x53,0x53,
   }
 	uint8_t rx[ARRAY_SIZE(tx)] = {0, };
 	struct spi_ioc_transfer tr = {
