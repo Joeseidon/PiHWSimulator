@@ -168,20 +168,23 @@ int main(int argc, char * argv[])
    if ((loops < 1) || (loops > 10000000)) loops = LOOPS;
 
    fd = spiOpen(0, speed, 0);
-
    start = time_time();
+   printf("fd open\n");
 
    if (fd < 0) return 1;
 
    for (i=0; i<loops; i++)
    {
       spiXfer(fd, speed, TXBuf, RXBuf, bytes);
+      printf("loop");
    }
 
+   printf("transfer occured\n");
    diff = time_time() - start;
 
+   printf("diff: %d\n",&diff);
    close(fd);
-
+   printf("fd closed\n");
    printf("sps=%.1f: %d bytes @ %d bps (loops=%d time=%.1f)\n",
       (double)loops / diff, bytes, speed, loops, diff);
 }
