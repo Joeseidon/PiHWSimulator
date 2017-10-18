@@ -23,8 +23,8 @@ def main():
 
     pi.wave_send_repeat(f500)
 
-    '''h = pi.spi_open(0,32000,3)
-    while True:
+    h = pi.spi_open(0,32000,3)
+    '''while True:
         pi.spi_write(h,[2, 192, 128])
         (b,d)=pi.spi_read(h,3)
         if b==3:
