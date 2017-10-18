@@ -188,7 +188,7 @@ int main(int argc, char * argv[])
    spiWrite(fd,speed,data,bytes);
    spiRead(fd,speed,rtrn,bytes);
 
-   for(int i = 0; i <bytes; i++){
+   for(i = 0; i <bytes; i++){
      printf("Data Comparison -> old: %i / new: %i", data[i],rtrn[i]);
    }
 
