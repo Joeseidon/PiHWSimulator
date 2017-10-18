@@ -32,11 +32,13 @@ def main():
             print(d)
         else:
             print("No data")'''
-    while True:
+    for i in range(15):
         (count, rx_data) = pi.spi_xfer(h, [1,128,29])
         print(count)
         print(rx_data)
         time.sleep(4)
+    pi.wave_tx_stop()
+    pi.wave_clear()
 
 if __name__ == "__main__":
     main()
