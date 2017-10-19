@@ -16,18 +16,27 @@ void setup(){
   Serial.begin(9600);
   delay(500);
   
+  Serial.write("Any Key to Start");
+  while(Serial.available()==0){
+  }
+  
 }
 
 void loop(){
   for(data = 0; data<256; data++)
   {
     digitalWrite(CS, LOW);
-    SPI.transfer(data);
-    Serial.println(data);
+    //SPI.transfer(data);
+    delay(1000);
+    Serial.write("Low");
     digitalWrite(CS, HIGH);
-    digitalWrite(CS, LOW);
-    SPI.transfer(0x00);
-    digitalWrite(CS, HIGH);
-    delay(500);
+    Serial.write("High");
+    delay(1500);
+    
+    //digitalWrite(CS, LOW);
+    //SPI.transfer(0x00);
+    //delay(1000);
+    //digitalWrite(CS, HIGH);
+    //delay(500);
   }
 }
