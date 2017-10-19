@@ -265,7 +265,7 @@ int gpioInitialise(void)
    spiReg = initMapMem(fd, SPI0_BASE, SPI_LEN);
 
    close(fd);
-   if ((spiRef == MAP_FAILED)){
+   if ((spiReg == MAP_FAILED)){
        fprintf(stderr, "Bad, SPI mmap failed\n");
        return -1;
    }
