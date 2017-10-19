@@ -261,7 +261,7 @@ int gpioInitialise(void)
    systReg  = initMapMem(fd, SYST_BASE,  SYST_LEN);
    bscsReg  = initMapMem(fd, BSCS_BASE,  BSCS_LEN);
 
-   printf("SPI Map:\n");
+
    spiReg = initMapMem(fd, SPI0_BASE, SPI_LEN);
 
    close(fd);
@@ -296,6 +296,12 @@ main()
    {
       printf("reg=%d val=%8X\n",
          i, bscsReg[i]);
+   }
+
+   printf("SPI Map:\n");
+   for (i=0; i<32; i++){
+       printf("reg=%d val=%8X\n",
+          i, spiReg[i]);
    }
 }
 
