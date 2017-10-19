@@ -4,7 +4,8 @@ int CS = 10;
 int DOUT = 11;
 int SCLK = 13;
 
-byte data = 0;
+byte dataMarker = 0x81;
+byte rtnval = 0x00;
 
 void setup(){
   SPI.begin();
@@ -12,22 +13,20 @@ void setup(){
   pinMode(CS, OUTPUT);
   pinMode(DOUT, OUTPUT);
   pinMode(SCLK, OUTPUT);
-  
+
   Serial.begin(9600);
   delay(500);
-  
+
 }
 
 void loop(){
-  for(data = 0; data<256; data++)
+  while(rtnval != dataMarker)
   {
     digitalWrite(CS, LOW);
-    SPI.transfer(data);
-    Serial.println(data);
-    digitalWrite(CS, HIGH);
-    digitalWrite(CS, LOW);
-    SPI.transfer(0x00);
+    rtnval = SPI.transfer(dataMarker);
     digitalWrite(CS, HIGH);
     delay(500);
   }
+  Serial.println("Synchronized");
+  while true;
 }
