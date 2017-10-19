@@ -1,0 +1,19 @@
+/**
+ *  Synchronize to SPI master.  Due to the way the Raspberry Pi PCM interface
+ *  works, bytes are usually not aligned correctly.  To establish correct
+ *  transmission, the master should transmit a stream of marker bytes (0x81)
+ *  until it reads the marker byte back.  This function will adjust reception
+ *  parameters until the marker bytes come through correctly, then send a marker
+ *  byte as acknowledgement.  Finally, the master sends (marker ^ 0xff) to
+ *  finish synchronization.
+ *
+ *  You can use this function as template in case you require some other way of
+ *  synchronization, e.g. when you don't have the option to modify the master's
+ *  program code.  In any case, there is no way to reliably synchronize master
+ *  and slave without reading (and discarding) several hundreds of bytes.  The
+ *  Frame Sync input is not reliable enough for this purpose, unfortunately.
+ */
+ 
+ 
+ 
+Therefore It might not be possible to synchronize before attempting to simulate desired HW. 

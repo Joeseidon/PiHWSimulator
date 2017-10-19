@@ -4,39 +4,29 @@ int CS = 10;
 int DOUT = 11;
 int SCLK = 13;
 
-byte data = 0;
+byte dataMarker = 0x81;
+byte rtnval = 0x00;
 
 void setup(){
   SPI.begin();
   SPI.setBitOrder(MSBFIRST);
   pinMode(CS, OUTPUT);
-  pinMode(DOUT, OUTPUT);
-  pinMode(SCLK, OUTPUT);
   
   Serial.begin(9600);
   delay(500);
-  
-  Serial.write("Any Key to Start");
-  while(Serial.available()==0){
-  }
-  
 }
 
 void loop(){
-  for(data = 0; data<256; data++)
+  while(rtnval != dataMarker)
   {
     digitalWrite(CS, LOW);
-    //SPI.transfer(data);
-    delay(1000);
-    Serial.write("Low");
+    rtnval = SPI.transfer(dataMarker);
     digitalWrite(CS, HIGH);
-    Serial.write("High");
-    delay(1500);
-    
-    //digitalWrite(CS, LOW);
-    //SPI.transfer(0x00);
-    //delay(1000);
-    //digitalWrite(CS, HIGH);
-    //delay(500);
+    delay(500);
   }
+  Serial.println("Synchronized");
+  digitalWrite(CS,LOW);
+  SPI.transfer(0xff);
+  digitalWrite(CS, HIGH);
+  while (1 == 1){}
 }
