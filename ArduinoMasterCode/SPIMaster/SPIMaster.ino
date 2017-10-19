@@ -28,5 +28,8 @@ void loop(){
     delay(500);
   }
   Serial.println("Synchronized");
+  digitalWrite(CS,LOW);
+  SPI.transfer(0xff);
+  digitalWrite(CS, HIGH);
   while true;
 }
