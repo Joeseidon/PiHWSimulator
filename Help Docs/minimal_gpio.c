@@ -46,6 +46,7 @@ static volatile uint32_t piBusAddr = 0x40000000;
 #define PWM_LEN   0x28
 #define I2C_LEN   0x1C
 #define BSCS_LEN  0x40
+#define SPI_LEN   0x1C
 
 #define GPSET0 7
 #define GPSET1 8
@@ -259,8 +260,14 @@ int gpioInitialise(void)
    systReg  = initMapMem(fd, SYST_BASE,  SYST_LEN);
    bscsReg  = initMapMem(fd, BSCS_BASE,  BSCS_LEN);
 
-   close(fd);
+   printf("SPI Map:\n");
+   spiReg = initMapMem(fd, SPI0_BASE, SPI_LEN);
 
+   close(fd);
+   if ((spiRef == MAP_FAILED)){
+       fprintf(stderr, "Bad, SPI mmap failed\n");
+       return -1;
+   }
    if ((gpioReg == MAP_FAILED) ||
        (systReg == MAP_FAILED) ||
        (bscsReg == MAP_FAILED))
