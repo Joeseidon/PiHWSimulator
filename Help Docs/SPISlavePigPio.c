@@ -47,7 +47,9 @@ int main(int argc, char const *argv[]) {
   xfer.control = (0x00<<16) | 0x303;
   char rtnBuf[BSC_FIFO_SIZE];
   //send
-  memcpy(xfer.txBuf, 0x81, 2);
+  uint8_t t = 0x81;
+  char rtn[BSC_FIFO_SIZE];
+  memcpy(xfer.txBuf, &t, 2);
   //copy recieve
   memcpy(rtn,xfer.rxBuf, 6);
 
