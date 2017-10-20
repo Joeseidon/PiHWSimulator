@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include <pigpio.h>
+#include <pigpio.c>
 
 #define SPI_CS
 #define MOSI
@@ -41,6 +42,12 @@ MOSI  20
 SCLK  21
 */
 
+/*
+CONSIDER : using gpioSerialReadOpen() from pigpio to read incoming data
+      data read : using gpioSerialRead
+      **caller of this function must read data from cyclic buffer in a timely fashion
+
+*/
 int main(int argc, char const *argv[]) {
   //No address since SPI is being used
   bsc_xfer_t xfer;
@@ -49,6 +56,7 @@ int main(int argc, char const *argv[]) {
   //send
   char rtn[BSC_FIFO_SIZE];
   memcpy(xfer.txBuf, "AB", 2);
+  xfer.txCnt = 2;
   //copy recieve
   memcpy(rtn,xfer.rxBuf, 6);
 
