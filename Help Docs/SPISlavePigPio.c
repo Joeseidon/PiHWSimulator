@@ -43,6 +43,7 @@ SCLK  21
 
 int main(int argc, char const *argv[]) {
   //No address since SPI is being used
+  bsc_xfer_t xfer;
   xfer.control = (0x00<<16) | 0x303;
   char rtnBuf[BSC_FIFO_SIZE];
   //send
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[]) {
   memcpy(rtn,xfer.rxBuf, 6);
 
   //Print current RX buffer
-
+  int status;
   status = bscXfer(&xfer);
 
   if(status >= 0)
@@ -61,6 +62,6 @@ int main(int argc, char const *argv[]) {
 
     //print RX buffer after send
   }
-  
+
   return 0;
 }
