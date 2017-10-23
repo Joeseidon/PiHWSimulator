@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 #include <pigpio.h>
-#include <pigpio.c>
 
 #define SPI_CS
 #define MOSI
