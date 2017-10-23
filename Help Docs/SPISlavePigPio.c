@@ -69,6 +69,9 @@ int main(int argc, char const *argv[]) {
     memcpy(rtn,xfer.rxBuf, 6);
 
     //print RX buffer after send
+    for(int i = 0; i < rtn.lenth(); i++){
+      print("%c",rtn[i]);
+    }
   }
 
   return 0;
