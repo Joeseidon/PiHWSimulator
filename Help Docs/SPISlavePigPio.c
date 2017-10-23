@@ -58,7 +58,11 @@ int main(int argc, char const *argv[]) {
   xfer.txCnt = 2;
   //copy recieve
   memcpy(rtn,xfer.rxBuf, 6);
-
+	if(gpioInitialise() < 0)
+	{
+		fprintf(stderr, "pigpio initialisation failed. #n");
+		return 1;
+	}
   //Print current RX buffer
   int status;
   status = bscXfer(&xfer);
@@ -66,12 +70,14 @@ int main(int argc, char const *argv[]) {
   if(status >= 0)
   {
     //copy recieve
-    memcpy(rtn,xfer.rxBuf, 6);
+    memcpy(rtnBuf,xfer.rxBuf, 6);
 
     //print RX buffer after send
-    for(int i = 0; i < rtn.lenth(); i++){
-      print("%c",rtn[i]);
-    }
+    int i;
+	for(i = 0; i < sizeof(rtnBuf); i++){
+      		printf("%c",rtnBuf[i]);
+    	}
+	printf("%s",rtnBuf);
   }
 
   return 0;
