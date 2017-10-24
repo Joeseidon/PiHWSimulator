@@ -7,7 +7,19 @@ def main():
         print("not connected")
         exit()
 
-    pi.set_mode(10, pigpio.OUTPUT)
+
+    pi.set_mode(2, pigpio.INPUT)
+    pi.set_mode(8, pigpio.OUTPUT)
+    status = pi.gpioSerialReadOpen(2, 320000,32)
+    print (status)
+
+    while(pi.gpioRead(8)):
+        pass
+    pi.gpioSerialRead(2,buf,200)
+    pi.gpioSerialReadClose
+
+    print(buf)
+    '''pi.set_mode(10, pigpio.OUTPUT)
     pi.set_mode(9, pigpio.INPUT)
     pi.set_mode(4, pigpio.OUTPUT)
     pi.set_mode(24, pigpio.OUTPUT)
@@ -25,20 +37,20 @@ def main():
     pi.wave_send_repeat(f500)
 
     h = pi.spi_open(0,32000,3)
-    '''while True:
+    while True:
         pi.spi_write(h,[2, 192, 128])
         (b,d)=pi.spi_read(h,3)
         if b==3:
             print(d)
         else:
-            print("No data")'''
+            print("No data")
     for i in range(15):
         (count, rx_data) = pi.spi_xfer(h, [1,128,29])
         print(count)
         print(rx_data)
         time.sleep(4)
     pi.wave_tx_stop()
-    pi.wave_clear()
+    pi.wave_clear()'''
 
 if __name__ == "__main__":
     main()
