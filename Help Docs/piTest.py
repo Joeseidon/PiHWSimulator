@@ -10,13 +10,13 @@ def main():
 
     pi.set_mode(2, pigpio.INPUT)
     pi.set_mode(8, pigpio.OUTPUT)
-    status = pi.gpioSerialReadOpen(2, 320000,32)
+    status = pi.bb_serial_read_open(2, 320000,8)
     print (status)
 
     while(pi.gpioRead(8)):
         pass
-    pi.gpioSerialRead(2,buf,200)
-    pi.gpioSerialReadClose
+    (num, buf)=pi.bb_serial_read(2)
+    pi.bb_serial_read_close(2)
 
     print(buf)
     '''pi.set_mode(10, pigpio.OUTPUT)
