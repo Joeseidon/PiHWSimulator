@@ -13,7 +13,31 @@
  *  and slave without reading (and discarding) several hundreds of bytes.  The
  *  Frame Sync input is not reliable enough for this purpose, unfortunately.
  */
- 
- 
- 
-Therefore It might not be possible to synchronize before attempting to simulate desired HW. 
+
+
+
+    >Therefore It might not be possible to synchronize before attempting to
+    simulate desired HW unless specific code is injected into the master
+    system.
+
+
+
+
+
+
+
+>This can be a special problem when running "READ" (master sends: ....)
+ operations where the kenrel has to react within one SPI clock cycle deciding
+ what to send for the next byte...
+
+    >The system will not be able to interpret, execute, and respond within one
+    SPI clock cycle without hardware assistance.
+
+>Due to the naure of SPI slave (simultaneous transmit and receive, while
+everything runs at the pace of the master), it has hard real-time
+requirements: once an SPI transfer is started by the SPI master, a
+software SPI slave must have prepared all data to be sent back to the
+SPI master.  Hence without additional hardware support, an SPI slave
+response can never be a reply to a command being simultaneously
+transmitted, and SPI slave replies must be received by the SPI master in
+a subsequent SPI transfer.
