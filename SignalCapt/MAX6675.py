@@ -52,7 +52,7 @@ stop = time.time() + 600
 while time.time() < stop:
    c, d = pi.spi_read(sensor, 2)
    if c == 2:
-      word = (d[0]<<8) | d[1]
+      #word = (d[0]<<8) | d[1]
       if (word & 0x8006) == 0: # Bits 15, 2, and 1 should be zero.
          t = (word >> 3)/4.0
          print("{:.2f}".format(t),word)
