@@ -55,8 +55,7 @@ while time.time() < stop:
       word = (d[0]<<8) | d[1]
       if (word & 0x8006) == 0: # Bits 15, 2, and 1 should be zero.
          t = (word >> 3)/4.0
-         print("{:.2f}".format(t))
-		 print("--->",word)
+         print("{:.2f}".format(t),word)
       else:
          print("bad reading {:b}".format(word))
    time.sleep(0.25) # Don't try to read more often than 4 times a second.
